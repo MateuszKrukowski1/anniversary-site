@@ -36,9 +36,34 @@ document.addEventListener("DOMContentLoaded", function () {
   updateCounter();
   setInterval(updateCounter, 1000);
 
+  function fadeInMusic() {
+    if (!loveSong) return;
+
+    loveSong.volume = 0;
+    loveSong.currentTime = 0;
+
+    loveSong.play().catch(function () {
+      console.log("Music file missing or blocked.");
+    });
+
+    let volume = 0;
+
+    const fade = setInterval(function () {
+      volume += 0.02;
+
+      if (volume >= 0.6) {
+        volume = 0.6;
+        clearInterval(fade);
+      }
+
+      loveSong.volume = volume;
+    }, 100);
+  }
+
   if (openLetterBtn) {
     openLetterBtn.addEventListener("click", function () {
       if (envelope) envelope.classList.add("open");
+
       openLetterBtn.style.display = "none";
 
       setTimeout(function () {
@@ -53,14 +78,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!noBtn) return;
 
     noBtn.style.position = "fixed";
-    noBtn.style.left =
-      Math.random() * (window.innerWidth - noBtn.offsetWidth - 30) + "px";
-    noBtn.style.top =
-      Math.random() * (window.innerHeight - noBtn.offsetHeight - 30) + "px";
+    noBtn.style.zIndex = "9999";
+
+    const maxX = window.innerWidth - noBtn.offsetWidth - 30;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 30;
+
+    noBtn.style.left = Math.random() * Math.max(maxX, 0) + "px";
+    noBtn.style.top = Math.random() * Math.max(maxY, 0) + "px";
   }
 
   if (noBtn) {
     noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("click", function (e) {
       e.preventDefault();
       moveNoButton();
@@ -69,13 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (yesBtn) {
     yesBtn.addEventListener("click", function () {
-      if (loveSong) {
-        loveSong.play().catch(function () {
-          console.log("Music file missing or blocked.");
-        });
-      }
-
-      createHeartBurst(70);
+      fadeInMusic();
+      createHeartBurst(80);
 
       setTimeout(function () {
         if (introScreen) introScreen.classList.remove("active");
@@ -96,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
       heart.style.left = window.innerWidth / 2 + "px";
       heart.style.top = window.innerHeight / 2 + "px";
       heart.style.setProperty("--x", Math.random() * 520 - 260 + "px");
+      heart.style.fontSize = 18 + Math.random() * 22 + "px";
 
       document.body.appendChild(heart);
 
