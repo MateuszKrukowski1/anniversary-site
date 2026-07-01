@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Two Years ❤️ Nim & Tutu</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <audio id="loveSong" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="bg-hearts" id="bgHearts"></div>
+
+  <main>
+    <section class="screen active" id="introScreen">
+      <div class="card hero-card">
+        <p class="eyebrow">A little letter for you</p>
+        <h1>Happy Two Years</h1>
+        <h2>Nim ❤️ Tutu</h2>
+        <div class="counter-box">
+          <span>We've been together for</span>
+          <strong id="relationshipCounter">Loading...</strong>
+        </div>
+        <div class="envelope-wrap">
+          <div class="envelope" id="envelope">
+            <div class="letter" id="letter">
+              <h3>For Tutu ❤️</h3>
+              <p>I have something special to ask you...</p>
+            </div>
+            <div class="env-back"></div>
+            <div class="env-left"></div>
+            <div class="env-right"></div>
+            <div class="env-front"></div>
+            <div class="env-flap"></div>
+          </div>
+        </div>
+        <button class="primary" id="openLetterBtn">Open Letter 💌</button>
+        <div class="question-area hidden" id="questionArea">
+          <h3>Would you like to go on a date with me?</h3>
+          <div class="button-row">
+            <button class="primary" id="yesBtn">Yes ❤️</button>
+            <button class="secondary" id="noBtn">No 🙈</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="loveScreen">
+      <div class="content">
+        <div class="card letter-card">
+          <p class="eyebrow">Dear Tutu</p>
+          <h2>To My Favourite Person ❤️</h2>
+          <p id="typewriterText"></p>
+        </div>
+
+        <div class="gallery-section">
+          <h2>Our Memories 📸</h2>
+          <p>Replace these with your own 10 photos named photo1.jpg to photo10.jpg.</p>
+          <div class="carousel">
+            <button class="carousel-btn" id="prevBtn">‹</button>
+            <div class="photo-frame" id="photoFrame">
+              <img id="carouselImage" src="images/photo1.jpg" alt="Memory photo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;900&quot; height=&quot;600&quot;><rect width=&quot;100%&quot; height=&quot;100%&quot; fill=&quot;%23ffe1ec&quot;/><text x=&quot;50%&quot; y=&quot;50%&quot; dominant-baseline=&quot;middle&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;34&quot; fill=&quot;%23d84f7e&quot;>Add your photo here</text></svg>'">
+              <span id="photoNumber">1 / 10</span>
+            </div>
+            <button class="carousel-btn" id="nextBtn">›</button>
+          </div>
+        </div>
+
+        <div class="timeline card">
+          <h2>Our Journey ❤️</h2>
+          <div class="timeline-grid">
+            <div><span>💕</span><h3>4 July 2024</h3><p>The beginning of us.</p></div>
+            <div><span>📸</span><h3>Favourite Memory</h3><p>Edit this in index.html.</p></div>
+            <div><span>✨</span><h3>Best Adventure</h3><p>Edit this in index.html.</p></div>
+            <div><span>💌</span><h3>Today</h3><p>Two beautiful years.</p></div>
+          </div>
+        </div>
+
+        <div class="reveal card">
+          <p class="eyebrow">One more surprise</p>
+          <h2>I've planned something special...</h2>
+          <button class="primary" id="revealBtn">Reveal Our Date 🗺️</button>
+          <div class="date-card" id="dateCard">
+            <h3>💕 Date Night Invitation 💕</h3>
+            <p>📅 Date: Coming soon</p>
+            <p>🕖 Time: Coming soon</p>
+            <p>📍 Location: Coming soon</p>
+            <p>✨ Dress nice</p>
+            <p>❤️ I can't wait</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
