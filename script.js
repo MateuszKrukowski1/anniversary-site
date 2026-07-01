@@ -160,11 +160,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const letter =
-    "Tutu,\n\n" +
-    "Thank you for every laugh, every memory, every adventure, and every ordinary day that you somehow make feel special.\n\n" +
-    "These two years with you have meant more to me than I can properly put into words. You are my favourite person, my safest place, and my best adventure.\n\n" +
-    "I love you so much.\n\n" +
-    "- Nim ❤️";
+    "Niamh,\n\n" +
+    "I have missed you SO MUCH!! I hope we have the best anniversary ever today, and I cant wait to hug, kiss you, and smile with you all day long :) \n\n" +
+    "These two years with you have meant more to me than you could ever know. You are the smartest, and kindest person I've ever met as well as my best Travel buddy xx.\n\n" +
+    "I'm so excited to spend the rest of our lives together, especially with your much closer Sheffield move. I am really so incredibly proud of you. I love you so much.\n\n" +
+    "- Mateusz ❤️";
 
   let typingStarted = false;
 
