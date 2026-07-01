@@ -1,120 +1,220 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const startDate = new Date('2024-07-04T00:00:00');
-  const counter = document.getElementById('relationshipCounter');
-  const envelope = document.getElementById('envelope');
-  const openLetterBtn = document.getElementById('openLetterBtn');
-  const questionArea = document.getElementById('questionArea');
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const loveSong = document.getElementById('loveSong');
-  const introScreen = document.getElementById('introScreen');
-  const loveScreen = document.getElementById('loveScreen');
-  const typewriterText = document.getElementById('typewriterText');
-  const carouselImage = document.getElementById('carouselImage');
-  const photoNumber = document.getElementById('photoNumber');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const revealBtn = document.getElementById('revealBtn');
-  const dateCard = document.getElementById('dateCard');
+document.addEventListener("DOMContentLoaded", function () {
+  const startDate = new Date("2024-07-04T00:00:00");
 
-  function updateCounter(){
-    if(!counter) return;
+  const counter = document.getElementById("relationshipCounter");
+  const envelope = document.getElementById("envelope");
+  const openLetterBtn = document.getElementById("openLetterBtn");
+  const questionArea = document.getElementById("questionArea");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const loveSong = document.getElementById("loveSong");
+  const introScreen = document.getElementById("introScreen");
+  const loveScreen = document.getElementById("loveScreen");
+
+  const typewriterText = document.getElementById("typewriterText");
+  const carouselImage = document.getElementById("carouselImage");
+  const photoNumber = document.getElementById("photoNumber");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const revealBtn = document.getElementById("revealBtn");
+  const dateCard = document.getElementById("dateCard");
+
+  function updateCounter() {
+    if (!counter) return;
+
     const diff = new Date() - startDate;
     const days = Math.floor(diff / 86400000);
     const hours = Math.floor(diff / 3600000);
-    counter.innerHTML = `${days.toLocaleString()} Days<br>${hours.toLocaleString()} Hours<br>Together ❤️`;
+
+    counter.innerHTML =
+      days.toLocaleString() +
+      " Days<br>" +
+      hours.toLocaleString() +
+      " Hours<br>Together ❤️";
   }
-  updateCounter(); setInterval(updateCounter, 1000);
 
-  openLetterBtn.addEventListener('click', () => {
-    envelope.classList.add('open');
-    openLetterBtn.style.display = 'none';
-    setTimeout(() => questionArea.classList.add('show'), 1250);
-    createHeartBurst(24);
-  });
+  updateCounter();
+  setInterval(updateCounter, 1000);
 
-  function moveNo(){
-    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-    noBtn.style.position = 'fixed';
-    noBtn.style.left = `${Math.random() * Math.max(maxX, 10)}px`;
-    noBtn.style.top = `${Math.random() * Math.max(maxY, 10)}px`;
+  if (openLetterBtn) {
+    openLetterBtn.addEventListener("click", function () {
+      if (envelope) envelope.classList.add("open");
+      openLetterBtn.style.display = "none";
+
+      setTimeout(function () {
+        if (questionArea) questionArea.classList.add("show");
+      }, 1200);
+
+      createHeartBurst(25);
+    });
   }
-  noBtn.addEventListener('mouseenter', moveNo);
-  noBtn.addEventListener('touchstart', (e)=>{ e.preventDefault(); moveNo(); });
-  noBtn.addEventListener('click', (e)=>{ e.preventDefault(); moveNo(); });
 
-  yesBtn.addEventListener('click', async () => {
-    try { await loveSong.play(); } catch(e) { console.log('Music blocked or missing:', e); }
-    createHeartBurst(70);
-    setTimeout(() => {
-      introScreen.classList.remove('active');
-      loveScreen.classList.add('active');
-      window.scrollTo(0,0);
-      startTypewriter();
-    }, 1200);
-  });
+  function moveNoButton() {
+    if (!noBtn) return;
 
-  function createHeartBurst(count){
-    for(let i=0;i<count;i++){
-      const heart = document.createElement('div');
-      heart.className = 'burst-heart';
-      heart.textContent = ['❤️','💕','💖','💗'][Math.floor(Math.random()*4)];
-      heart.style.left = `${window.innerWidth/2}px`;
-      heart.style.top = `${window.innerHeight/2}px`;
-      heart.style.setProperty('--x', `${Math.random()*520-260}px`);
-      heart.style.fontSize = `${18 + Math.random()*26}px`;
+    noBtn.style.position = "fixed";
+    noBtn.style.left =
+      Math.random() * (window.innerWidth - noBtn.offsetWidth - 30) + "px";
+    noBtn.style.top =
+      Math.random() * (window.innerHeight - noBtn.offsetHeight - 30) + "px";
+  }
+
+  if (noBtn) {
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      moveNoButton();
+    });
+  }
+
+  if (yesBtn) {
+    yesBtn.addEventListener("click", function () {
+      if (loveSong) {
+        loveSong.play().catch(function () {
+          console.log("Music file missing or blocked.");
+        });
+      }
+
+      createHeartBurst(70);
+
+      setTimeout(function () {
+        if (introScreen) introScreen.classList.remove("active");
+        if (loveScreen) loveScreen.classList.add("active");
+
+        window.scrollTo(0, 0);
+        startTypewriter();
+      }, 900);
+    });
+  }
+
+  function createHeartBurst(amount) {
+    for (let i = 0; i < amount; i++) {
+      const heart = document.createElement("div");
+
+      heart.className = "burst-heart";
+      heart.textContent = ["❤️", "💕", "💖", "💗"][Math.floor(Math.random() * 4)];
+      heart.style.left = window.innerWidth / 2 + "px";
+      heart.style.top = window.innerHeight / 2 + "px";
+      heart.style.setProperty("--x", Math.random() * 520 - 260 + "px");
+
       document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(), 3000);
+
+      setTimeout(function () {
+        heart.remove();
+      }, 3000);
     }
   }
 
-  setInterval(() => {
-    const heart = document.createElement('div');
-    heart.className = 'floating-heart';
-    heart.textContent = ['❤️','💕','💖','🌸'][Math.floor(Math.random()*4)];
-    heart.style.left = `${Math.random()*100}vw`;
-    heart.style.animationDuration = `${6+Math.random()*6}s`;
-    heart.style.opacity = `${0.45+Math.random()*0.5}`;
+  setInterval(function () {
+    const heart = document.createElement("div");
+
+    heart.className = "floating-heart";
+    heart.textContent = ["❤️", "💕", "💖", "🌸"][Math.floor(Math.random() * 4)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(), 12000);
+
+    setTimeout(function () {
+      heart.remove();
+    }, 12000);
   }, 900);
 
-  document.addEventListener('mousemove', (e) => {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = `${e.clientX}px`;
-    s.style.top = `${e.clientY}px`;
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(), 700);
+  document.addEventListener("mousemove", function (e) {
+    const sparkle = document.createElement("div");
+
+    sparkle.className = "sparkle";
+    sparkle.style.left = e.clientX + "px";
+    sparkle.style.top = e.clientY + "px";
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(function () {
+      sparkle.remove();
+    }, 700);
   });
 
-  const letter = `Tutu,\n\nThank you for every laugh, every memory, every adventure, and every ordinary day that you somehow make feel special.\n\nThese two years with you have meant more to me than I can properly put into words. You are my favourite person, my safest place, and my best adventure.\n\nI love you so much.\n\n- Nim ❤️`;
+  const letter =
+    "Tutu,\n\n" +
+    "Thank you for every laugh, every memory, every adventure, and every ordinary day that you somehow make feel special.\n\n" +
+    "These two years with you have meant more to me than I can properly put into words. You are my favourite person, my safest place, and my best adventure.\n\n" +
+    "I love you so much.\n\n" +
+    "- Nim ❤️";
+
   let typingStarted = false;
-  function startTypewriter(){
-    if(typingStarted) return; typingStarted = true;
-    let i = 0; typewriterText.textContent = '';
-    const timer = setInterval(()=>{
-      typewriterText.textContent += letter[i] || '';
+
+  function startTypewriter() {
+    if (!typewriterText || typingStarted) return;
+
+    typingStarted = true;
+    typewriterText.textContent = "";
+
+    let i = 0;
+
+    const typing = setInterval(function () {
+      typewriterText.textContent += letter.charAt(i);
       i++;
-      if(i >= letter.length) clearInterval(timer);
-    }, 32);
+
+      if (i >= letter.length) {
+        clearInterval(typing);
+      }
+    }, 30);
   }
 
-  const photos = Array.from({length:10}, (_,i)=>`images/photo${i+1}.jpg`);
-  let current = 0;
-  function showPhoto(){
-    carouselImage.src = photos[current];
-    photoNumber.textContent = `${current+1} / ${photos.length}`;
+  const photos = [
+    "images/photo1.jpg",
+    "images/photo2.jpg",
+    "images/photo3.jpg",
+    "images/photo4.jpg",
+    "images/photo5.jpg",
+    "images/photo6.jpg",
+    "images/photo7.jpg",
+    "images/photo8.jpg",
+    "images/photo9.jpg",
+    "images/photo10.jpg"
+  ];
+
+  let currentPhoto = 0;
+
+  function showPhoto() {
+    if (!carouselImage || !photoNumber) return;
+
+    carouselImage.src = photos[currentPhoto];
+    photoNumber.textContent = currentPhoto + 1 + " / " + photos.length;
   }
-  nextBtn.addEventListener('click', ()=>{current=(current+1)%photos.length; showPhoto();});
-  prevBtn.addEventListener('click', ()=>{current=(current-1+photos.length)%photos.length; showPhoto();});
-  setInterval(()=>{current=(current+1)%photos.length; showPhoto();}, 5000);
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function () {
+      currentPhoto = (currentPhoto + 1) % photos.length;
+      showPhoto();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", function () {
+      currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+      showPhoto();
+    });
+  }
+
   showPhoto();
 
-  revealBtn.addEventListener('click', () => {
-    dateCard.classList.toggle('show');
-    revealBtn.textContent = dateCard.classList.contains('show') ? 'Hide Our Date ❤️' : 'Reveal Our Date 🗺️';
-    if(dateCard.classList.contains('show')) createHeartBurst(30);
-  });
+  setInterval(function () {
+    currentPhoto = (currentPhoto + 1) % photos.length;
+    showPhoto();
+  }, 5000);
+
+  if (revealBtn && dateCard) {
+    revealBtn.addEventListener("click", function () {
+      dateCard.classList.toggle("show");
+
+      revealBtn.textContent = dateCard.classList.contains("show")
+        ? "Hide Our Date ❤️"
+        : "Reveal Our Date 🗺️";
+
+      if (dateCard.classList.contains("show")) {
+        createHeartBurst(30);
+      }
+    });
+  }
 });
